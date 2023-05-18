@@ -72,4 +72,5 @@ function markUpInfo(countries) {
         <li><span>Languages:</span> ${allLanguages}</li>
       </ul>`;
   refs.countryInfo.innerHTML = markUp;
+  console.log('выводим карточку страны');
 }

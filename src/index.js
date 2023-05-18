@@ -32,7 +32,6 @@ function onInput(evt) {
         markUpList(countries);
       } else if (countries.length === 1) {
         markUpInfo(countries);
-        console.log('выводим страну с флагом');
       }
     })
     .catch(error => {

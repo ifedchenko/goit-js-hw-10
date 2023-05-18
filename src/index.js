@@ -25,9 +25,7 @@ function onInput(evt) {
   fetchCountries(searchQuery)
     .then(countries => {
       if (countries.length > 10) {
-        Notiflix.Notify.info(
-          'Too many matches found. Please enter a more specific name.'
-        );
+        notificationInfo();
       } else if (countries.length > 2 && countries.length <= 10) {
         markUpList(countries);
       } else if (countries.length === 1) {
@@ -37,6 +35,12 @@ function onInput(evt) {
     .catch(error => {
       console.log(error);
     });
+}
+
+function notificationInfo() {
+  Notiflix.Notify.info(
+    'Too many matches found. Please enter a more specific name.'
+  );
 }
 
 function markUpList(countries) {

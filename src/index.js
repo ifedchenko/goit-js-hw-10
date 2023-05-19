@@ -33,7 +33,11 @@ function onInput(evt) {
       }
     })
     .catch(error => {
-      console.log(error);
+      if (error.message === '404') {
+        Notiflix.Notify.failure('Oops, there is no country with that name');
+      } else {
+        Notiflix.Notify.failure(error.message);
+      }
     });
 }
 
@@ -44,22 +48,33 @@ function notificationInfo() {
 }
 
 function markUpList(countries) {
-  countries.forEach(country => {
-    const { flags, name } = country;
-    const liItem = document.createElement('li');
-    const countryFlag = document.createElement('img');
-    const countryName = document.createElement('p');
+  // countries.forEach(country => {
+  //   const { flags, name } = country;
+  // const liItem = document.createElement('li');
+  // const countryFlag = document.createElement('img');
+  // const countryName = document.createElement('p');
 
-    countryFlag.src = flags.svg;
-    countryFlag.alt = `Flag of ${name}`;
-    countryFlag.width = 20;
-    countryFlag.height = 20;
+  // countryFlag.src = flags.svg;
+  // countryFlag.alt = `Flag of ${name}`;
+  // countryFlag.width = 20;
+  // countryFlag.height = 20;
 
-    countryName.textContent = name.official;
+  // countryName.textContent = name.official;
 
-    liItem.append(countryFlag, countryName);
-    refs.countryList.appendChild(liItem);
-  });
+  const markup = countries
+    .map(country => {
+      const { flags, name } = country;
+      return `
+    <li>
+    <img src="${flags.svg}" alt="Flag of ${name.official}" width= 20px>
+    <p>${name.official}</p>
+    </li>
+    `;
+    })
+    .join('');
+
+  refs.countryList.innerHTML = markup;
+
   console.log('выводим страны списком');
 }
 
